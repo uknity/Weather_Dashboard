@@ -19,19 +19,27 @@
         <h1 class="display-4">Weather Dashboard</h1>
     </header>
 
-    <container id="pageContainer" class="d-flex p-2 bd-highlight">
+    <container id="pageContainer" class="d-flex container-fluid">
         
-        <aside id="searchAside" class="flex-column">
+        <aside id="searchAside" class="flex-column col-12 col-md-4 container-fluid">
             <h2>Search for a City:</h2>
-            <div>searchBar</div>
+            <div class="input-group">
+                <div class="form-outline">
+                  <input type="search" id="form1" class="form-control"/>
+                  <label class="form-label" for="form1">Search</label>
+                </div>
+                <button type="button" class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                </button>
+            </div>
             <div>cityList</div>
         </aside>
         
-        <section id="cityWeather" class="flex-column">
+        <section id="cityWeather" class="flex-column col-12 col-md-8">
             <section id="cityCurrent" class="flex-row">
                 <h2 id="currentCityHeader" class="flex-column">
                     <span id="currentCityName">Atlanta</span>
-                    <span id="currentDate">8/15/19</span>
+                    <span id="currentDate">(8/15/19)</span>
                     <span id="currentWeatherPic">Rain</span>
                 </h2>  
 
@@ -59,10 +67,10 @@
 
             <section id="fiveDayForecast" class="flex-column">
                 <h2>5-Day Forecast:</h2>
-                <div id="fiveDaysRow" class="flex-row">
-                    <span class="dayBox flex-column" id="dayBox1">
+                <div id="fiveDaysRow" class="d-flex justify-content-between">
+                    <div class="dayBox flex-column col-12 col-md-2 " id="dayBox1">
                         <div class="dayBoxDate">8/16/2019</div>
-                        <div class="dayBoxWeatherPic">sun</div>
+                        <div><img src="assets/images/sun.png"  alt="sun" class="dayBoxWeatherPic"></div>
                         <div class="dayBoxTemp flex-row">
                             <span class="dayBoxInfo">Temp: </span>
                             <span class="dayBoxInfo">86.84 degrees</span>
@@ -71,11 +79,11 @@
                             <span class="dayBoxInfo">Humidity: </span>
                             <span class="dayBoxInfo">43%</span>
                         </div>
-                    </span>
+                    </div>
                 
-                    <span class="dayBox flex-column" id="dayBox1">
+                    <div class="dayBox flex-column col-12 col-md-2" id="dayBox1">
                         <div class="dayBoxDate">8/16/2019</div>
-                        <div class="dayBoxWeatherPic">sun</div>
+                        <div><img src="assets/images/sun.png"  alt="sun" class="dayBoxWeatherPic"></div>
                         <div class="dayBoxTemp flex-row">
                             <span class="dayBoxInfo">Temp: </span>
                             <span class="dayBoxInfo">86.84 degrees</span>
@@ -84,11 +92,11 @@
                             <span class="dayBoxInfo">Humidity: </span>
                             <span class="dayBoxInfo">43%</span>
                         </div>
-                    </span>
-                
-                    <span class="dayBox flex-column" id="dayBox1">
+                    </div>
+
+                    <div class="dayBox flex-column col-12 col-md-2" id="dayBox1">
                         <div class="dayBoxDate">8/16/2019</div>
-                        <div class="dayBoxWeatherPic">sun</div>
+                        <div><img src="assets/images/sun.png"  alt="sun" class="dayBoxWeatherPic"></div>
                         <div class="dayBoxTemp flex-row">
                             <span class="dayBoxInfo">Temp: </span>
                             <span class="dayBoxInfo">86.84 degrees</span>
@@ -97,11 +105,11 @@
                             <span class="dayBoxInfo">Humidity: </span>
                             <span class="dayBoxInfo">43%</span>
                         </div>
-                    </span>
-               
-                    <span class="dayBox flex-column" id="dayBox1">
+                    </div>
+
+                    <div class="dayBox flex-column col-12 col-md-2" id="dayBox1">
                         <div class="dayBoxDate">8/16/2019</div>
-                        <div class="dayBoxWeatherPic">sun</div>
+                        <div><img src="assets/images/sun.png"  alt="sun" class="dayBoxWeatherPic"></div>
                         <div class="dayBoxTemp flex-row">
                             <span class="dayBoxInfo">Temp: </span>
                             <span class="dayBoxInfo">86.84 degrees</span>
@@ -110,11 +118,11 @@
                             <span class="dayBoxInfo">Humidity: </span>
                             <span class="dayBoxInfo">43%</span>
                         </div>
-                    </span>
-                
-                    <span class="dayBox flex-column" id="dayBox1">
+                    </div>
+
+                    <div class="dayBox flex-column col-12 col-md-2" id="dayBox1">
                         <div class="dayBoxDate">8/16/2019</div>
-                        <div class="dayBoxWeatherPic">sun</div>
+                        <div><img src="assets/images/sun.png"  alt="sun" class="dayBoxWeatherPic"></div>
                         <div class="dayBoxTemp flex-row">
                             <span class="dayBoxInfo">Temp: </span>
                             <span class="dayBoxInfo">86.84 degrees</span>
@@ -123,7 +131,8 @@
                             <span class="dayBoxInfo">Humidity: </span>
                             <span class="dayBoxInfo">43%</span>
                         </div>
-                    </span>
+                    </div>
+                    
                 </div>
 
                     
