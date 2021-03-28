@@ -1,0 +1,14 @@
+body {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.pageHeader {
+  text-align: center;
+    justify-content: center;
+  background-color: black;
+  color: white; 
+  margin-top: 30px;
+  padding: 30px;
+  margins: 30px;
+}

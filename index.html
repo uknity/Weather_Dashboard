@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/stylesheet.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <header class="jumbotron jumbotron-fluid pageHeader">
+        <h1 class="display-4">Weather Dashboard</h1>
+    </header>
+
+    <container id="pageContainer" class="d-flex p-2 bd-highlight">
+        
+        <aside id="searchAside" class="flex-column">
+            <h2>Search for a City:</h2>
+            <div>searchBar</div>
+            <div>cityList</div>
+        </aside>
+        
+        <section id="cityWeather" class="flex-column">
+            <section id="cityCurrent" class="flex-row">
+                <h2 id="currentCityHeader" class="flex-column">
+                    <span id="currentCityName">Atlanta</span>
+                    <span id="currentDate">8/15/19</span>
+                    <span id="currentWeatherPic">Rain</span>
+                </h2>  
+
+                <div class="currentCityTemp currentCityInfo flex-row">
+                    <span>Temperature: </span>
+                    <span>90.9</span>
+                </div>
+
+                <div class="currentCityHumidity currentCityInfo flex-row">
+                    <span>Humidity: </span>
+                    <span>41%</span>
+                </div>
+
+                <div class="currentCityWindSpeed currentCityInfo flex-row">
+                    <span>Wind Speed: </span>
+                    <span>4.7 MPH</span>
+                </div>
+
+                <div class="currentCityUVIndex currentCityInfo flex-row">
+                    <span>UV Index: </span>
+                    <span>9.49</span>
+                </div>
+
+            </section>
+
+            <section id="fiveDayForecast" class="flex-column">
+                <h2>5-Day Forecast:</h2>
+                <div id="fiveDaysRow" class="flex-row">
+                    <span class="dayBox flex-column" id="dayBox1">
+                        <div class="dayBoxDate">8/16/2019</div>
+                        <div class="dayBoxWeatherPic">sun</div>
+                        <div class="dayBoxTemp flex-row">
+                            <span class="dayBoxInfo">Temp: </span>
+                            <span class="dayBoxInfo">86.84 degrees</span>
+                        </div>
+                        <div class="dayBoxHumidity flex-row">
+                            <span class="dayBoxInfo">Humidity: </span>
+                            <span class="dayBoxInfo">43%</span>
+                        </div>
+                    </span>
+                
+                    <span class="dayBox flex-column" id="dayBox1">
+                        <div class="dayBoxDate">8/16/2019</div>
+                        <div class="dayBoxWeatherPic">sun</div>
+                        <div class="dayBoxTemp flex-row">
+                            <span class="dayBoxInfo">Temp: </span>
+                            <span class="dayBoxInfo">86.84 degrees</span>
+                        </div>
+                        <div class="dayBoxHumidity flex-row">
+                            <span class="dayBoxInfo">Humidity: </span>
+                            <span class="dayBoxInfo">43%</span>
+                        </div>
+                    </span>
+                
+                    <span class="dayBox flex-column" id="dayBox1">
+                        <div class="dayBoxDate">8/16/2019</div>
+                        <div class="dayBoxWeatherPic">sun</div>
+                        <div class="dayBoxTemp flex-row">
+                            <span class="dayBoxInfo">Temp: </span>
+                            <span class="dayBoxInfo">86.84 degrees</span>
+                        </div>
+                        <div class="dayBoxHumidity flex-row">
+                            <span class="dayBoxInfo">Humidity: </span>
+                            <span class="dayBoxInfo">43%</span>
+                        </div>
+                    </span>
+               
+                    <span class="dayBox flex-column" id="dayBox1">
+                        <div class="dayBoxDate">8/16/2019</div>
+                        <div class="dayBoxWeatherPic">sun</div>
+                        <div class="dayBoxTemp flex-row">
+                            <span class="dayBoxInfo">Temp: </span>
+                            <span class="dayBoxInfo">86.84 degrees</span>
+                        </div>
+                        <div class="dayBoxHumidity flex-row">
+                            <span class="dayBoxInfo">Humidity: </span>
+                            <span class="dayBoxInfo">43%</span>
+                        </div>
+                    </span>
+                
+                    <span class="dayBox flex-column" id="dayBox1">
+                        <div class="dayBoxDate">8/16/2019</div>
+                        <div class="dayBoxWeatherPic">sun</div>
+                        <div class="dayBoxTemp flex-row">
+                            <span class="dayBoxInfo">Temp: </span>
+                            <span class="dayBoxInfo">86.84 degrees</span>
+                        </div>
+                        <div class="dayBoxHumidity flex-row">
+                            <span class="dayBoxInfo">Humidity: </span>
+                            <span class="dayBoxInfo">43%</span>
+                        </div>
+                    </span>
+                </div>
+
+                    
+            </section>
+        </section>
+
+
+
+
+    </container>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
