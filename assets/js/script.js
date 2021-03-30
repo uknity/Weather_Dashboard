@@ -38,8 +38,8 @@ function currentPic(x) {
 }
 
 function weatherImg(dayCode) {
-    console.log(dayCode);
-    if (dayCode == "04d") {
+  console.log(dayCode);
+  if (dayCode == "04d") {
     var weatherImage = brokenCloud;
   } else if (dayCode == "01d") {
     var weatherImage = clearSky;
@@ -59,7 +59,7 @@ function weatherImg(dayCode) {
     var weatherImage = sun;
   }
 
-    return `${weatherImage}`;
+  return `${weatherImage}`;
 }
 
 function getCity() {
@@ -70,12 +70,6 @@ function getCity() {
 
   var fiveDayForecastData = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
-  var uvApi = `https://http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
-
-  fetch(uvApi)
-    .then(function (response) {
-        return response.json();
-    })
 
   fetch(fiveDayForecastData)
     .then(function (response) {
@@ -88,11 +82,11 @@ function getCity() {
       var c = 28;
       var d = 36;
 
-    dayData(x);
-    dayData(a);
-    dayData(b);
-    dayData(c);
-    dayData(d);
+      dayData(x);
+      dayData(a);
+      dayData(b);
+      dayData(c);
+      dayData(d);
 
       function dayData(x) {
         console.log(data.list[x].dt_txt);
@@ -101,10 +95,12 @@ function getCity() {
         console.log(data.list[x].main.humidity);
         console.log(data.list[x].weather[0].icon);
 
-        var dayBoxCol = $('<div>').addClass("dayBox flex-column col-12 col-md-2");
+        var dayBoxCol = $("<div>").addClass(
+          "dayBox flex-column col-12 col-md-2"
+        );
         fiveDaysRowEl.append(dayBoxCol);
-        var dayBoxDateDiv = $('<div>').text(`${data.list[x].dt_txt}`);
-        var dateDiv = (dayBoxDateDiv[0].textContent).slice(0, 10);
+        var dayBoxDateDiv = $("<div>").text(`${data.list[x].dt_txt}`);
+        var dateDiv = dayBoxDateDiv[0].textContent.slice(0, 10);
         dayBoxDateDiv.addClass("dayBoxDate");
         console.log(dateDiv);
         dayBoxCol.append(dateDiv);
@@ -116,25 +112,23 @@ function getCity() {
         var dayBoxTempDiv = $("<div>").addClass("dayBoxTemp flex-row");
         var dayBoxTempSpan1 = $("<span class='dayBoxInfo'>").text("Temp: ");
         var dayBoxTempSpan2 = $("<span class='dayBoxInfo'>");
-        dayBoxTempSpan2.attr("id", dayBoxTempEl)
+        dayBoxTempSpan2.attr("id", dayBoxTempEl);
         dayBoxTempSpan2.text(`${data.list[x].main.temp} \xB0`);
         dayBoxTempDiv.append(dayBoxTempSpan1);
         dayBoxTempDiv.append(dayBoxTempSpan2);
         dayBoxCol.append(dayBoxTempDiv);
 
         var dayBoxHumidityDiv = $("<div>").addClass("dayBoxHumidity flex-row");
-        var dayBoxHumiditySpan1 = $("<span class='dayBoxInfo'>").text("Humidity: ");
+        var dayBoxHumiditySpan1 = $("<span class='dayBoxInfo'>").text(
+          "Humidity: "
+        );
         var dayBoxHumiditySpan2 = $("<span class='dayBoxInfo'>");
-        dayBoxHumiditySpan2.attr("id", "dayBoxHumidity")
+        dayBoxHumiditySpan2.attr("id", "dayBoxHumidity");
         dayBoxHumiditySpan2.text(`${data.list[x].main.humidity}%`);
         dayBoxHumidityDiv.append(dayBoxHumiditySpan1);
         dayBoxHumidityDiv.append(dayBoxHumiditySpan2);
         dayBoxCol.append(dayBoxHumidityDiv);
-              
       }
-
-
-
     });
 
   fetch(finalCityApiUrl)
@@ -142,6 +136,11 @@ function getCity() {
       return response.json();
     })
     .then(function (data) {
+      console.log(data);
+      var lat = data.coord.lat;
+      var lon = data.coord.lon;
+      console.log(lat);
+      console.log(lon);
       currentCity.text(data.name);
       var currentWeatherCondition = data.weather[0].description;
       console.log(currentWeatherCondition);
@@ -153,7 +152,23 @@ function getCity() {
       currentWeatherPicEl.empty();
       var newPic = currentPic(currentWeatherIcon);
       currentWeatherPicEl.append(newPic);
+
+      var uvApi = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
+
+      fetch(uvApi)
+        .then(function (response) {
+            return response.json();
+        })
+      
+        .then(function (data) {
+            console.log(data.value);
+            currentCityUVIndexEl.text(data.value);
+        })
+
+
     });
+
+    
 }
 
 // function handleSearchFormSubmit(event) {
@@ -176,5 +191,3 @@ searchButton.on("click", function (event) {
   event.preventDefault();
   getCity();
 });
-
-
