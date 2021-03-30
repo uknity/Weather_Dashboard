@@ -11,22 +11,55 @@ var currentCityTempEl = $(".currentCityTemp");
 var currentCityHumidityEl = $(".currentCityHumidity");
 var currentCityWindSpeedEl = $(".currentCityWindSpeed");
 var currentCityUVIndexEl = $(".currentCityUVIndex");
-var brokenCloud = $("<img src='http://openweathermap.org/img/wn/04d@2x.png'>");
-var clearSky = $("<img src='http://openweathermap.org/img/wn/01d@2x.png'>");
-var snowPic = $("<img src='http://openweathermap.org/img/wn/13d@2x.png'>");
-var fewClouds = $("<img src='http://openweathermap.org/img/wn/02d@2x.png'>");
-var mist = $("<img src='http://openweathermap.org/img/wn/50d@2x.png'>");
-var rain = $("<img src='http://openweathermap.org/img/wn/10d@2x.png'>");
-var scatteredClouds = $(
-  "<img src='http://openweathermap.org/img/wn/03d@2x.png'>"
-);
-var sun = $("<img src='http://openweathermap.org/img/wn/01d@2x.png'>");
-var thunderstorm = $("<img src='http://openweathermap.org/img/wn/11d@2x.png'>");
 var fiveDaysRowEl = $("#fiveDaysRow");
 var dayBoxDateEl = $(".dayBoxDate");
 var dayBoxWeatherPicEl = $(".dayBoxWeatherPic");
 var dayBoxTempEl = $("#dayBoxTemp");
 var dayBoxHumidityEl = $("#dayBoxHumidity");
+
+// var pastSearches = [];
+
+// if(localStorage["pastSearches"]) {
+//      pastSearches = JSON.parse(localStorage["pastSearches"]);
+// }
+
+// if(pastSearches.indexOf(search) == -1) {
+//     pastSearches.unshift(search);
+//     if(pastSearches.length > 5) {
+//        pastSearches.pop();
+//     }
+//     localStorage["pastSearches"] = JSON.stringify(pastSearches);
+// }
+
+// function drawPastSearches() {
+//     if(pastSearches.length) {
+//         var html = pastSearchesTemplate({search:pastSearches});
+//         $("#pastSearches").html(html);
+//     }
+// }
+searchButton.on("click", function (event) {
+  event.preventDefault();
+  getCity();
+});
+
+function init() {}
+
+//add searchTermEl.val() to array
+// function handleSearchFormSubmit(event) {
+//     event.preventDefault();
+//     alert("the search button is working");
+// }
+
+//     var searchInputVal = document.querySelector('#search-input').value;
+//     var formatInputVal = document.querySelector('#format-input').value;
+
+//     if (!searchInputVal) {
+//       console.error('You need a search input value!');
+//       return;
+//     }
+
+//     searchApi(searchInputVal, formatInputVal);
+//   }
 
 function currentPic(x) {
   console.log(x);
@@ -34,32 +67,7 @@ function currentPic(x) {
   var code2 = "d";
   var dayCode = code.concat(code2);
   console.log(dayCode);
-  weatherImg(dayCode);
-}
-
-function weatherImg(dayCode) {
-  console.log(dayCode);
-  if (dayCode == "04d") {
-    var weatherImage = brokenCloud;
-  } else if (dayCode == "01d") {
-    var weatherImage = clearSky;
-  } else if (dayCode == "13d") {
-    var weatherImage = snowPic;
-  } else if (dayCode == "02d") {
-    var weatherImage = fewClouds;
-  } else if (dayCode == "50d") {
-    var weatherImage = mist;
-  } else if (dayCode == "10d") {
-    var weatherImage = rain;
-  } else if (dayCode == "03d") {
-    var weatherImage = scatteredClouds;
-  } else if (dayCode == "11d") {
-    var weatherImage = thunderstorm;
-  } else {
-    var weatherImage = sun;
-  }
-
-  return `${weatherImage}`;
+  return dayCode;
 }
 
 function getCity() {
@@ -70,31 +78,25 @@ function getCity() {
 
   var fiveDayForecastData = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
-
   fetch(fiveDayForecastData)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      var x = 4;
-      var a = 12;
-      var b = 20;
-      var c = 28;
-      var d = 36;
+      var y = 6;
+      var a = 14;
+      var b = 22;
+      var c = 30;
+      var d = 38;
 
-      dayData(x);
+      dayData(y);
       dayData(a);
       dayData(b);
       dayData(c);
       dayData(d);
 
       function dayData(x) {
-        console.log(data.list[x].dt_txt);
-        console.log(data.list[x].main.temp);
-        console.log(data.list[x].weather[0].main);
-        console.log(data.list[x].main.humidity);
-        console.log(data.list[x].weather[0].icon);
-
+        
         var dayBoxCol = $("<div>").addClass(
           "dayBox flex-column col-12 col-md-2"
         );
@@ -102,12 +104,18 @@ function getCity() {
         var dayBoxDateDiv = $("<div>").text(`${data.list[x].dt_txt}`);
         var dateDiv = dayBoxDateDiv[0].textContent.slice(0, 10);
         dayBoxDateDiv.addClass("dayBoxDate");
-        console.log(dateDiv);
         dayBoxCol.append(dateDiv);
 
-        // var dayBoxWeatherPicDiv = $('<div>');
-        // dayBoxWeatherPicDiv.addClass("dayBoxWeatherPic");
-        // dayBoxCol.append(dayBoxWeatherPicDiv);
+        var currentWeatherIconDay = data.list[x].weather[0].icon;
+        console.log(currentWeatherIconDay);
+        var dayCode = currentPic(currentWeatherIconDay);
+        console.log(dayCode);
+        var imgEl = $("<img>");
+        imgEl.attr(
+        "src",
+        `http://openweathermap.org/img/wn/${dayCode}@2x.png`
+      );
+        dayBoxCol.append(imgEl);
 
         var dayBoxTempDiv = $("<div>").addClass("dayBoxTemp flex-row");
         var dayBoxTempSpan1 = $("<span class='dayBoxInfo'>").text("Temp: ");
@@ -150,44 +158,26 @@ function getCity() {
       currentCityHumidityEl.text(`${data.main.humidity}%`);
       currentCityWindSpeedEl.text(`${data.wind.speed}  MPH`);
       currentWeatherPicEl.empty();
-      var newPic = currentPic(currentWeatherIcon);
-      currentWeatherPicEl.append(newPic);
+      var dayCode = currentPic(currentWeatherIcon);
+      console.log(dayCode);
+      var imgEl = $("<img>");
+      imgEl.attr(
+        "src",
+        `http://openweathermap.org/img/wn/${dayCode}@2x.png`
+      );
+      currentWeatherPicEl.append(imgEl);
+      
 
       var uvApi = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
       fetch(uvApi)
         .then(function (response) {
-            return response.json();
+          return response.json();
         })
-      
+
         .then(function (data) {
-            console.log(data.value);
-            currentCityUVIndexEl.text(data.value);
-        })
-
-
+          console.log(data.value);
+          currentCityUVIndexEl.text(data.value);
+        });
     });
-
-    
 }
-
-// function handleSearchFormSubmit(event) {
-//     event.preventDefault();
-//     alert("the search button is working");
-// }
-
-//     var searchInputVal = document.querySelector('#search-input').value;
-//     var formatInputVal = document.querySelector('#format-input').value;
-
-//     if (!searchInputVal) {
-//       console.error('You need a search input value!');
-//       return;
-//     }
-
-//     searchApi(searchInputVal, formatInputVal);
-//   }
-
-searchButton.on("click", function (event) {
-  event.preventDefault();
-  getCity();
-});
