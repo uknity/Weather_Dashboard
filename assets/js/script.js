@@ -16,6 +16,15 @@ var dayBoxDateEl = $(".dayBoxDate");
 var dayBoxWeatherPicEl = $(".dayBoxWeatherPic");
 var dayBoxTempEl = $("#dayBoxTemp");
 var dayBoxHumidityEl = $("#dayBoxHumidity");
+var recentSearchesList = $("#recentSearches");
+var lineOne = $("#firstLi");
+var lineTwo = $("#secondLi");
+var lineThree = $("#thirdLi");
+var lineFour = $("#fourthLi");
+var lineFive = $("#fifthLi");
+var lineSix = $("#sixthLi");
+var lineSeven = $("#seventhLi");
+var lineEight = $("#eightLi");
 
 // var pastSearches = [];
 
@@ -42,6 +51,11 @@ searchButton.on("click", function (event) {
   getCity();
 });
 
+searchForm.on("submit", function (event) {
+  event.preventDefault();
+  getCity();
+});
+
 function init() {}
 
 //add searchTermEl.val() to array
@@ -62,11 +76,9 @@ function init() {}
 //   }
 
 function currentPic(x) {
-  console.log(x);
   var code = x.slice(0, 2);
   var code2 = "d";
   var dayCode = code.concat(code2);
-  console.log(dayCode);
   return dayCode;
 }
 
@@ -83,6 +95,7 @@ function getCity() {
       return response.json();
     })
     .then(function (data) {
+      fiveDaysRowEl.empty();
       var y = 6;
       var a = 14;
       var b = 22;
@@ -96,10 +109,10 @@ function getCity() {
       dayData(d);
 
       function dayData(x) {
-        
         var dayBoxCol = $("<div>").addClass(
           "dayBox flex-column col-12 col-md-2"
         );
+
         fiveDaysRowEl.append(dayBoxCol);
         var dayBoxDateDiv = $("<div>").text(`${data.list[x].dt_txt}`);
         var dateDiv = dayBoxDateDiv[0].textContent.slice(0, 10);
@@ -107,14 +120,9 @@ function getCity() {
         dayBoxCol.append(dateDiv);
 
         var currentWeatherIconDay = data.list[x].weather[0].icon;
-        console.log(currentWeatherIconDay);
         var dayCode = currentPic(currentWeatherIconDay);
-        console.log(dayCode);
         var imgEl = $("<img>");
-        imgEl.attr(
-        "src",
-        `http://openweathermap.org/img/wn/${dayCode}@2x.png`
-      );
+        imgEl.attr("src", `http://openweathermap.org/img/wn/${dayCode}@2x.png`);
         dayBoxCol.append(imgEl);
 
         var dayBoxTempDiv = $("<div>").addClass("dayBoxTemp flex-row");
@@ -144,29 +152,18 @@ function getCity() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var lat = data.coord.lat;
       var lon = data.coord.lon;
-      console.log(lat);
-      console.log(lon);
       currentCity.text(data.name);
-      var currentWeatherCondition = data.weather[0].description;
-      console.log(currentWeatherCondition);
       var currentWeatherIcon = data.weather[0].icon;
-      console.log(currentWeatherIcon);
       currentCityTempEl.text(`${data.main.temp} \xB0`);
       currentCityHumidityEl.text(`${data.main.humidity}%`);
       currentCityWindSpeedEl.text(`${data.wind.speed}  MPH`);
       currentWeatherPicEl.empty();
       var dayCode = currentPic(currentWeatherIcon);
-      console.log(dayCode);
       var imgEl = $("<img>");
-      imgEl.attr(
-        "src",
-        `http://openweathermap.org/img/wn/${dayCode}@2x.png`
-      );
+      imgEl.attr("src", `http://openweathermap.org/img/wn/${dayCode}@2x.png`);
       currentWeatherPicEl.append(imgEl);
-      
 
       var uvApi = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
@@ -176,7 +173,6 @@ function getCity() {
         })
 
         .then(function (data) {
-          console.log(data.value);
           currentCityUVIndexEl.text(data.value);
         });
     });
