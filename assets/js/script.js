@@ -48,15 +48,20 @@ function getCity() {
         })
         .then(function (data) {
             
-            for (i=0; i<5; i++) {
-                var arr = 7 + [i];
-                console.log(data.list);
-                console.log(data.list[arr]);
-                console.log(data.list[arr].dt_txt);
-                console.log(data.list[arr].main.temp);
-                console.log(data.list[arr].weather[0].main);
-                console.log(data.list[arr].main.humidity);
+            console.log(data.list[0]);
+            console.log(data.list[0].dt_txt);
+            console.log(data.list[0].main.temp);
+            console.log(data.list[0].weather[0].main);
+            console.log(data.list[0].main.humidity);
+
+            for (i=8; i < 40; (i+8)) {
+                console.log(data.list[i]);
+                console.log(data.list[i].dt_txt);
+                console.log(data.list[i].main.temp);
+                console.log(data.list[i].weather[0].main);
+                console.log(data.list[i].main.humidity);
             }
+            
         })
 
         
