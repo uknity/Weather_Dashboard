@@ -75,17 +75,17 @@ function getCity() {
       return response.json();
     })
     .then(function (data) {
-      var x = 0;
-    //   var a = 7;
-    //   var b = 15;
-    //   var c = 23;
-    //   var d = 31;
+      var x = 4;
+      var a = 12;
+      var b = 20;
+      var c = 28;
+      var d = 36;
 
-      dayData(x);
-    //   dayData(a);
-    //   dayData(b);
-    //   dayData(c);
-    //   dayData(d);
+    dayData(x);
+    dayData(a);
+    dayData(b);
+    dayData(c);
+    dayData(d);
 
       function dayData(x) {
         console.log(data.list[x].dt_txt);
@@ -102,29 +102,31 @@ function getCity() {
         console.log(dateDiv);
         dayBoxCol.append(dateDiv);
 
-        var dayBoxWeatherPicDiv = $('<div>');
-        dayBoxWeatherPicDiv.addClass("dayBoxWeatherPic");
-        dayBoxCol.append(dayBoxWeatherPicDiv);
+        // var dayBoxWeatherPicDiv = $('<div>');
+        // dayBoxWeatherPicDiv.addClass("dayBoxWeatherPic");
+        // dayBoxCol.append(dayBoxWeatherPicDiv);
 
-        // var dayBoxTempDiv = $("<div>").addClass("dayBoxTemp flex-row");
-        // var dayBoxTempSpan1 = $("<span class="dayBoxInfo">").text("Temp: ");
-        // var dayBoxTempSpan2 = $("<span class="dayBoxInfo">;
-        // dayBoxTempSpan2.attr("id", dayBoxTempEl)
-        // dayBoxTempSpan2.text(data.list[x].main.temp);
-        // dayBoxTempDiv.append(dayBoxTempSpan1);
-        // dayBoxTempDiv.append(dayBoxTempSpan1);
+        var dayBoxTempDiv = $("<div>").addClass("dayBoxTemp flex-row");
+        var dayBoxTempSpan1 = $("<span class='dayBoxInfo'>").text("Temp: ");
+        var dayBoxTempSpan2 = $("<span class='dayBoxInfo'>");
+        dayBoxTempSpan2.attr("id", dayBoxTempEl)
+        dayBoxTempSpan2.text(`${data.list[x].main.temp} \xB0`);
+        dayBoxTempDiv.append(dayBoxTempSpan1);
+        dayBoxTempDiv.append(dayBoxTempSpan2);
+        dayBoxCol.append(dayBoxTempDiv);
 
-        // var dayBoxHumidityDiv = $("<div>").addClass("dayBoxHumidity flex-row");
-        // var dayBoxHumiditySpan1 = $("<span class="dayBoxInfo">").text("Humidity: ");
-        // var dayBoxHumiditySpan2 = $("<span class="dayBoxInfo">;
-        // dayBoxHumiditySpan2.attr("id", dayBoxHumidity)
-        // dayBoxTempSpan2.text(data.list[x].main.temp);
-        // dayBoxHumidityDiv.append(dayBoxTempSpan1);
-        // dayBoxHumidityDiv.append(dayBoxTempSpan1);
-
-        
-        
+        var dayBoxHumidityDiv = $("<div>").addClass("dayBoxHumidity flex-row");
+        var dayBoxHumiditySpan1 = $("<span class='dayBoxInfo'>").text("Humidity: ");
+        var dayBoxHumiditySpan2 = $("<span class='dayBoxInfo'>");
+        dayBoxHumiditySpan2.attr("id", "dayBoxHumidity")
+        dayBoxHumiditySpan2.text(`${data.list[x].main.humidity}%`);
+        dayBoxHumidityDiv.append(dayBoxHumiditySpan1);
+        dayBoxHumidityDiv.append(dayBoxHumiditySpan2);
+        dayBoxCol.append(dayBoxHumidityDiv);
+              
       }
+
+
 
     });
 
