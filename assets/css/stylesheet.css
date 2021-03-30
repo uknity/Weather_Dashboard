@@ -35,6 +35,16 @@ body {
     height: calc(1.5em + .75rem + 2px);
 
 }
+
+.list {
+    margin-right: 60px;
+    margin-top: 25px;
+}
+
+.listLine {
+    min-height: 50px;
+}
+
 #cityWeather {
     padding: 20px;
     
