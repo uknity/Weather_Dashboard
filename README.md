@@ -10,4 +10,4 @@ Users may submit searches by clicking the save button or by hitting "enter" on t
 
 Github URL:  https://github.com/uknity/Weather_Dashboard
 
-Deployed Site URL:  
+Deployed Site URL: https://uknity.github.io/Weather_Dashboard/
