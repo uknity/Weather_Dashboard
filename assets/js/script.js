@@ -1,4 +1,5 @@
 // var fetchButton = document.getElementById('fetch-button');
+var currentDayEl = $("#currentDay");
 var searchForm = $("#search-form");
 var searchTermEl = $("#search-term");
 var initialCityApiUrl =
@@ -17,63 +18,77 @@ var dayBoxWeatherPicEl = $(".dayBoxWeatherPic");
 var dayBoxTempEl = $("#dayBoxTemp");
 var dayBoxHumidityEl = $("#dayBoxHumidity");
 var recentSearchesList = $("#recentSearches");
-var lineOne = $("#firstLi");
-var lineTwo = $("#secondLi");
-var lineThree = $("#thirdLi");
-var lineFour = $("#fourthLi");
-var lineFive = $("#fifthLi");
-var lineSix = $("#sixthLi");
-var lineSeven = $("#seventhLi");
-var lineEight = $("#eightLi");
+var listLineEl = $(".listLine");
 
-// var pastSearches = [];
+// function displayDate() {
+var currentDate = moment().format("MMM DD, YYYY");
+currentDayEl.text(currentDate);
+//}
+//upon init, if there are pastSearches in local storage, populates the array
+function init() {
+  pastSearches = JSON.parse(localStorage.getItem("pastSearches"));
+  if (pastSearches == null) {
+    pastSearches = [];
+    console.log(pastSearches);
+  }
+  for (i = 0; i < pastSearches.length; i++) {
+    // create listItem
+    var listItem = $(
+      '<a class="list-group-item list-group-item-action listLine">'
+    );
+    var textSpan = $(`<span id=item${+[i]}>`);
+    textSpan.addClass("searchInput");
+    textSpan.text(pastSearches[i]);
+    listItem.append(textSpan);
+    $("#recentSearches").append(listItem);
+  }
+}
+$(document).ready(function() {
+  $(".searchInput").click(function() {
+    var text = $(this).text();
+    console.log(text);
+    getCity(text);
+  })
+})
 
-// if(localStorage["pastSearches"]) {
-//      pastSearches = JSON.parse(localStorage["pastSearches"]);
-// }
+var pastSearches = [];
 
-// if(pastSearches.indexOf(search) == -1) {
-//     pastSearches.unshift(search);
-//     if(pastSearches.length > 5) {
-//        pastSearches.pop();
-//     }
-//     localStorage["pastSearches"] = JSON.stringify(pastSearches);
-// }
+//adds "search" if no pastSearches; removes a search item if there are more than 8; stores pastSearches in local storage
 
-// function drawPastSearches() {
-//     if(pastSearches.length) {
-//         var html = pastSearchesTemplate({search:pastSearches});
-//         $("#pastSearches").html(html);
-//     }
-// }
+function checkSearches(search) {
+  //if the search is not in the array
+
+  if (pastSearches.indexOf(search) == -1) {
+    //add the search to the beginning of the array
+    pastSearches.unshift(search);
+    //if there are already 8 items in the array, pop the last one
+    if (pastSearches.length > 7) {
+      pastSearches.pop();
+    }
+    //put the array into local storage
+    localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
+  }
+}
+
 searchButton.on("click", function (event) {
   event.preventDefault();
-  getCity();
+  var s = searchTermEl.val();
+  if (!s) {
+    alert("You must enter the name of a city.");
+    return;
+  }
+  checkSearches(s);
+  getCity(s);
 });
 
 searchForm.on("submit", function (event) {
   event.preventDefault();
-  getCity();
+  var s = searchTermEl.val();
+  checkSearches(s);
+  getCity(s);
 });
 
-function init() {}
-
-//add searchTermEl.val() to array
-// function handleSearchFormSubmit(event) {
-//     event.preventDefault();
-//     alert("the search button is working");
-// }
-
-//     var searchInputVal = document.querySelector('#search-input').value;
-//     var formatInputVal = document.querySelector('#format-input').value;
-
-//     if (!searchInputVal) {
-//       console.error('You need a search input value!');
-//       return;
-//     }
-
-//     searchApi(searchInputVal, formatInputVal);
-//   }
+init();
 
 function currentPic(x) {
   var code = x.slice(0, 2);
@@ -82,9 +97,10 @@ function currentPic(x) {
   return dayCode;
 }
 
-function getCity() {
-  var city = searchTermEl.val();
-  console.log(city);
+function getCity(s) {
+  var city = s;
+  //pastSearches.push(`${city}`);
+  console.log(pastSearches);
 
   var finalCityApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
@@ -125,7 +141,7 @@ function getCity() {
         imgEl.attr("src", `http://openweathermap.org/img/wn/${dayCode}@2x.png`);
         dayBoxCol.append(imgEl);
 
-        var dayBoxTempDiv = $("<div>").addClass("dayBoxTemp flex-row");
+        var dayBoxTempDiv = $("<div class='dayBoxTemp flex-row'>");
         var dayBoxTempSpan1 = $("<span class='dayBoxInfo'>").text("Temp: ");
         var dayBoxTempSpan2 = $("<span class='dayBoxInfo'>");
         dayBoxTempSpan2.attr("id", dayBoxTempEl);
@@ -138,8 +154,9 @@ function getCity() {
         var dayBoxHumiditySpan1 = $("<span class='dayBoxInfo'>").text(
           "Humidity: "
         );
-        var dayBoxHumiditySpan2 = $("<span class='dayBoxInfo'>");
-        dayBoxHumiditySpan2.attr("id", "dayBoxHumidity");
+        var dayBoxHumiditySpan2 = $(
+          "<span class='dayBoxInfo' id='dayBoxHumidity'>"
+        );
         dayBoxHumiditySpan2.text(`${data.list[x].main.humidity}%`);
         dayBoxHumidityDiv.append(dayBoxHumiditySpan1);
         dayBoxHumidityDiv.append(dayBoxHumiditySpan2);

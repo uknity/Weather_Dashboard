@@ -43,8 +43,17 @@ body {
 
 .listLine {
     min-height: 50px;
+    padding: 0px;
 }
 
+.searchInput {
+    display: flex;
+    width: 98%;
+    height: 98%;
+    margin: 0px;
+    padding: 3px;
+    padding-left: 8px;
+}
 #cityWeather {
     padding: 20px;
     
