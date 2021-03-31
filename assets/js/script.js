@@ -116,6 +116,7 @@ function getCity(s) {
         var dayCode = currentPic(currentWeatherIconDay);
         var imgEl = $("<img>");
         imgEl.attr("src", `http://openweathermap.org/img/wn/${dayCode}@2x.png`);
+        imgEl.addClass("currentWeatherImg");
         dayBoxCol.append(imgEl);
 
         var dayBoxTempDiv = $("<div class='dayBoxTemp flex-row'>");
@@ -158,6 +159,7 @@ function getCity(s) {
       var dayCode = currentPic(currentWeatherIcon);
       var imgEl = $("<img>");
       imgEl.attr("src", `http://openweathermap.org/img/wn/${dayCode}@2x.png`);
+      imgEl.addClass(".currentWeatherPic");
       currentWeatherPicEl.append(imgEl);
 
       //pulls data for the city's latitude and longitude in order to display UV index

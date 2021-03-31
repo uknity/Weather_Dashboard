@@ -1,7 +1,6 @@
 body {
     margin-left: 40px;
     margin-right: 40px;
-    font-size: 1.8rem;
 }
 
 #pageContainer {
@@ -56,6 +55,7 @@ body {
     margin: 0px;
     padding: 3px;
     padding-left: 8px;
+    font-size: 1.5rem;
 }
 
 #cityWeather {
@@ -112,9 +112,9 @@ body {
     margin-bottom: 15px;
 }
 
-.dayBoxWeatherPic {
-    width: 50%;
-    padding: 10px;
+.currentWeatherImg {
+    width: 90%;
+    text-align: center;
 }
 
 .dayBoxTemp {
@@ -126,3 +126,36 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+/* when screen falls below 1000px */
+@media screen and (max-width: 1000px) {
+
+    .h2,
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .currentWeatherImg {
+        width: 90%;
+    }
+
+    .searchInput {
+        font-size: 1.1rem;
+    }
+
+    .dayBox {
+        font-size: 1.0rem;
+    }
+
+    #fiveDaysRow {
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 798px) {
+        .searchInput {
+            font-size: .7rem;
+        }
+    .dayBox {
+        font-size: 0.7rem;
+    }
+    }
