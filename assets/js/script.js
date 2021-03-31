@@ -25,41 +25,6 @@ currentDayEl.text(currentDate);
 var pastSearches = [];
 
 //functions
-//upon init, if there are pastSearches in local storage, populates the array
-function init() {
-  pastSearches = JSON.parse(localStorage.getItem("pastSearches"));
-  if (pastSearches == null) {
-    pastSearches = [];
-    console.log(pastSearches);
-  }
-  for (i = 0; i < pastSearches.length; i++) {
-    // create listItem
-    var listItem = $(
-      '<a class="list-group-item list-group-item-action listLine">'
-    );
-    var textSpan = $(`<span id=item${+[i]}>`);
-    textSpan.addClass("searchInput");
-    textSpan.text(pastSearches[i]);
-    listItem.append(textSpan);
-    $("#recentSearches").append(listItem);
-  }
-}
-
-//adds "search" if no pastSearches; removes a search item if there are more than 8; stores pastSearches in local storage
-function checkSearches(search) {
-  //if the search is not in the array
-
-  if (pastSearches.indexOf(search) == -1) {
-    //add the search to the beginning of the array
-    pastSearches.unshift(search);
-    //if there are already 8 items in the array, pop the last one
-    if (pastSearches.length > 7) {
-      pastSearches.pop();
-    }
-    //put the array into local storage
-    localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
-  }
-}
 
 //function to turn night weather icons into day icons
 function currentPic(x) {
@@ -102,7 +67,7 @@ function getCity(s) {
       //adds 5-day data to page
       function dayData(x) {
         var dayBoxCol = $("<div>").addClass(
-          "dayBox flex-column col-12 col-md-2"
+          "dayBox flex-column "
         );
 
         fiveDaysRowEl.append(dayBoxCol);
@@ -175,12 +140,75 @@ function getCity(s) {
         });
     });
 }
+
+//upon init, if there are pastSearches in local storage, populates the array
+function init() {
+  pastSearches = JSON.parse(localStorage.getItem("pastSearches"));
+  if (pastSearches == null) {
+    pastSearches = [];
+    console.log(pastSearches);
+  }
+  for (i = 0; i < pastSearches.length; i++) {
+    // create listItem
+    var listItem = $(
+      '<a class="list-group-item list-group-item-action listLine">'
+    );
+    var textSpan = $(`<span id=item${+[i]}>`);
+    textSpan.addClass("searchInput");
+    textSpan.text(pastSearches[i]);
+    listItem.append(textSpan);
+    $("#recentSearches").append(listItem);
+  }
+}
+
+//adds "search" if no pastSearches; removes a search item if there are more than 8; stores pastSearches in local storage
+
+function checkSearches(search) {
+
+  //if the search is not in the array
+  if (pastSearches.indexOf(search) == -1) {
+
+    //if there are already 8 items in the array, pop the last one & create a row for it
+    if (pastSearches.length > 7) {
+
+      pastSearches.pop(search);
+      var listItem = $('<a class="list-group-item list-group-item-action listLine">');
+      var textSpan = $(`<span id=item${search}>`);
+      textSpan.addClass("searchInput");
+      textSpan.text(search);
+      listItem.append(textSpan);
+      $("#recentSearches").append(listItem);
+      localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
+      getCity(search);
+
+      //add the search to the beginning of the array & create a list item for it
+    } else {
+      pastSearches.unshift(search);
+      var listItem = $('<a class="list-group-item list-group-item-action listLine">');
+      var textSpan = $(`<span id=item${search}>`);
+      textSpan.addClass("searchInput");
+      textSpan.text(search);
+      listItem.append(textSpan);
+      $("#recentSearches").append(listItem);
+      localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
+      getCity(search);
+    }
+
+  }
+  //if it is in the array, search the city
+  else {
+    getCity(search);
+  }
+
+};
+
 //listener events
 //upon clicking a saved city on the page, it's weather data will be presented
 $(document).ready(function () {
   $(".searchInput").click(function () {
     var text = $(this).text();
-    console.log(text);
+    // var listItem = $(
+    //   '<a class="list-group-item list-group-item-action listLine">');
     getCity(text);
   });
 });
@@ -196,6 +224,7 @@ searchButton.on("click", function (event) {
   checkSearches(s);
   getCity(s);
 });
+
 
 //provides weather data when "enter" is pushed
 searchForm.on("submit", function (event) {
