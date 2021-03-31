@@ -1,6 +1,7 @@
 body {
     margin-left: 40px;
     margin-right: 40px;
+    font-size: 1.8rem;
 }
 
 #pageContainer {
@@ -16,6 +17,7 @@ body {
   margin-top: 30px;
   padding: 30px;
   margin: 0px;
+  font-size: 1.5em;
 }
 
 #searchAside {
@@ -67,7 +69,7 @@ body {
 }
 
 #currentCityHeader {
-    font-size: 2em;
+    /* font-size: 2em; */
     margin-bottom: 20px;
 }
 
@@ -81,6 +83,7 @@ body {
 
 .currentCityInfo {
     padding-top: 20px;
+    font-size: 1.3rem;
 }
 
 #fiveDayForecast {
@@ -92,12 +95,14 @@ body {
 }
 
 .dayBox {
+    text-align: center;
     background-color: #1386eb;
     border-radius: 5px;
     color: white;
     padding: 10px;
     margin: 10px;
     margin-top: 20px;
+    font-size: 1.2rem;
 }
 
 .dayBoxDate {
