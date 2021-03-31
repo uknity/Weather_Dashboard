@@ -18,9 +18,10 @@
     </header>
     <main>
 
-        <section id="pageContainer" class="d-flex">
-            
-                <aside id="searchAside" class="col-lg-4 col-md-8">
+        <container id="pageContainer" class="container">
+            <div id="fullContentRow" class="row">
+
+                <div id="searchAside" class="col-12 col-sm-12 col-md-4">
                     <h2>Search for a City:</h2>
                     <form id="search-form" class="input-group">
                         <div class="form-outline">
@@ -38,49 +39,51 @@
                     <div class="list-group list" id="recentSearches">
 
                     </div>
-                </aside>
+                </div>
 
-                <section id="cityWeather" class="col-md-8 container-fluid">
-                    <section id="cityCurrent" class="flex-row">
-                        <h2 id="currentCityHeader" class="flex-column">
+                <section id="cityWeather" class="col-12 col-sm-12 col-md-8">
+                    <section id="cityCurrent" class="">
+                        <h2 id="currentCityHeader">
                             <span id="currentCityName"></span>
                             <span id="currentDay"></span>
                             <span id="currentWeatherPic"></span>
                         </h2>
 
-                        <div class="currentCityInfo flex-row">
+                        <div class="currentCityInfo">
                             <span>Temperature: </span>
                             <span class="currentCityTemp"></span>
                         </div>
 
-                        <div class="currentCityInfo flex-row">
+                        <div class="currentCityInfo">
                             <span>Humidity: </span>
                             <span class="currentCityHumidity"></span>
                         </div>
 
-                        <div class="currentCityInfo flex-row">
+                        <div class="currentCityInfo">
                             <span>Wind Speed: </span>
                             <span class="currentCityWindSpeed"></span>
                         </div>
 
-                        <div class="currentCityInfo flex-row">
+                        <div class="currentCityInfo">
                             <span>UV Index: </span>
                             <span class="currentCityUVIndex"></span>
                         </div>
 
                     </section>
+                    <section id="fiveDayForecast" class="">
+                        <section>
+                            <h2>5-Day Forecast:</h2>
+                            <div id="fiveDaysRow" class="d-flex justify-content-between">
+                            </div>
 
-                    <section id="fiveDayForecast" class="flex-column">
-                        <h2>5-Day Forecast:</h2>
-                        <div id="fiveDaysRow" class="d-flex justify-content-between">
-                        </div>
-
+                        </section>
                     </section>
                 </section>
+                
 
 
-
-            </section>
+            </div>
+        </container>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
