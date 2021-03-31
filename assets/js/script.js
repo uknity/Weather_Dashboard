@@ -1,9 +1,7 @@
-// var fetchButton = document.getElementById('fetch-button');
+//DOM Variables
 var currentDayEl = $("#currentDay");
 var searchForm = $("#search-form");
 var searchTermEl = $("#search-term");
-var initialCityApiUrl =
-  "api.openweathermap.org/data/2.5/weather?q={city name}&appid=cc1d108015a60ec6fb2d04e49e6039dd";
 var searchButton = $("#searchBtn");
 var currentCity = $("#currentCityName");
 var currentDateEl = $("#currentDate");
@@ -20,10 +18,13 @@ var dayBoxHumidityEl = $("#dayBoxHumidity");
 var recentSearchesList = $("#recentSearches");
 var listLineEl = $(".listLine");
 
-// function displayDate() {
+//javaScript variables
+// variable to displayDate() {
 var currentDate = moment().format("MMM DD, YYYY");
 currentDayEl.text(currentDate);
-//}
+var pastSearches = [];
+
+//functions
 //upon init, if there are pastSearches in local storage, populates the array
 function init() {
   pastSearches = JSON.parse(localStorage.getItem("pastSearches"));
@@ -43,18 +44,8 @@ function init() {
     $("#recentSearches").append(listItem);
   }
 }
-$(document).ready(function() {
-  $(".searchInput").click(function() {
-    var text = $(this).text();
-    console.log(text);
-    getCity(text);
-  })
-})
-
-var pastSearches = [];
 
 //adds "search" if no pastSearches; removes a search item if there are more than 8; stores pastSearches in local storage
-
 function checkSearches(search) {
   //if the search is not in the array
 
@@ -70,26 +61,7 @@ function checkSearches(search) {
   }
 }
 
-searchButton.on("click", function (event) {
-  event.preventDefault();
-  var s = searchTermEl.val();
-  if (!s) {
-    alert("You must enter the name of a city.");
-    return;
-  }
-  checkSearches(s);
-  getCity(s);
-});
-
-searchForm.on("submit", function (event) {
-  event.preventDefault();
-  var s = searchTermEl.val();
-  checkSearches(s);
-  getCity(s);
-});
-
-init();
-
+//function to turn night weather icons into day icons
 function currentPic(x) {
   var code = x.slice(0, 2);
   var code2 = "d";
@@ -97,6 +69,7 @@ function currentPic(x) {
   return dayCode;
 }
 
+//pulls weather data for searched city and displays
 function getCity(s) {
   var city = s;
   //pastSearches.push(`${city}`);
@@ -106,10 +79,12 @@ function getCity(s) {
 
   var fiveDayForecastData = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
+  //fetches 5-day forecast data
   fetch(fiveDayForecastData)
     .then(function (response) {
       return response.json();
     })
+    //pulls data for 5 days - couldn't loop because first parameter was different
     .then(function (data) {
       fiveDaysRowEl.empty();
       var y = 6;
@@ -124,6 +99,7 @@ function getCity(s) {
       dayData(c);
       dayData(d);
 
+      //adds 5-day data to page
       function dayData(x) {
         var dayBoxCol = $("<div>").addClass(
           "dayBox flex-column col-12 col-md-2"
@@ -132,8 +108,9 @@ function getCity(s) {
         fiveDaysRowEl.append(dayBoxCol);
         var dayBoxDateDiv = $("<div>").text(`${data.list[x].dt_txt}`);
         var dateDiv = dayBoxDateDiv[0].textContent.slice(0, 10);
+        var formattedDate = moment(dateDiv).format('MMMM D, YYYY');
         dayBoxDateDiv.addClass("dayBoxDate");
-        dayBoxCol.append(dateDiv);
+        dayBoxCol.append(formattedDate);
 
         var currentWeatherIconDay = data.list[x].weather[0].icon;
         var dayCode = currentPic(currentWeatherIconDay);
@@ -164,6 +141,7 @@ function getCity(s) {
       }
     });
 
+  //fetches current weather data
   fetch(finalCityApiUrl)
     .then(function (response) {
       return response.json();
@@ -182,6 +160,7 @@ function getCity(s) {
       imgEl.attr("src", `http://openweathermap.org/img/wn/${dayCode}@2x.png`);
       currentWeatherPicEl.append(imgEl);
 
+      //pulls data for the city's latitude and longitude in order to display UV index
       var uvApi = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=cc1d108015a60ec6fb2d04e49e6039dd`;
 
       fetch(uvApi)
@@ -194,3 +173,34 @@ function getCity(s) {
         });
     });
 }
+//listener events
+//upon clicking a saved city on the page, it's weather data will be presented
+$(document).ready(function () {
+  $(".searchInput").click(function () {
+    var text = $(this).text();
+    console.log(text);
+    getCity(text);
+  });
+});
+
+//provides weather data when search button is pushed
+searchButton.on("click", function (event) {
+  event.preventDefault();
+  var s = searchTermEl.val();
+  if (!s) {
+    alert("You must enter the name of a city.");
+    return;
+  }
+  checkSearches(s);
+  getCity(s);
+});
+
+//provides weather data when "enter" is pushed
+searchForm.on("submit", function (event) {
+  event.preventDefault();
+  var s = searchTermEl.val();
+  checkSearches(s);
+  getCity(s);
+});
+
+init();

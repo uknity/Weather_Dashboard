@@ -9,15 +9,16 @@ body {
     margin-left: 0px;
     height: 100vh;
 }
+
 .pageHeader {
-  text-align: center;
-  justify-content: center;
-  background-color: black;
-  color: white; 
-  margin-top: 30px;
-  padding: 30px;
-  margin: 0px;
-  font-size: 1.5em;
+    text-align: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    margin-top: 30px;
+    padding: 30px;
+    margin: 0px;
+    font-size: 1.5em;
 }
 
 #searchAside {
@@ -56,9 +57,10 @@ body {
     padding: 3px;
     padding-left: 8px;
 }
+
 #cityWeather {
     padding: 20px;
-    
+
 }
 
 #cityCurrent {
